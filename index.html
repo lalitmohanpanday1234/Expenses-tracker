@@ -200,13 +200,20 @@
         <div class="form-group">
           <label for="category">Category</label>
           <select id="category">
-            <option value="food">🍕 Food</option>
-            <option value="transport">🚗 Transport</option>
-            <option value="shopping">🛍️ Shopping</option>
-            <option value="entertainment">🎬 Entertainment</option>
-            <option value="bills">📄 Bills</option>
-            <option value="health">🏥 Health</option>
-            <option value="other">📦 Other</option>
+            <option value="food">🍔 Food and Groceries</option>
+            <option value="transport">🚗 Transportation</option>
+            <option value="rent">🏠 Rent and Household</option>
+            <option value="utilities">🧾 Utilities and Bills</option>
+            <option value="phone">📱 Phone Recharge and Internet</option>
+            <option value="education">🎓 Education Fees and Books</option>
+            <option value="stationery">🖊️ Stationery and Supplies</option>
+            <option value="healthcare">💊 Healthcare and Medicines</option>
+            <option value="personalcare">🪒 Personal Care and Grooming</option>
+            <option value="clothing">👕 Clothing and Accessories</option>
+            <option value="entertainment">🎬 Entertainment and Subscriptions</option>
+            <option value="gifts">🎁 Gifts and Donations</option>
+            <option value="savings">💰 Savings and Investments</option>
+            <option value="miscellaneous">🤷‍♂️ Miscellaneous/Others</option>
           </select>
         </div>
 
@@ -348,13 +355,25 @@
 
       filtered.forEach(expense => {
         const row = document.createElement('tr');
-        const categoryIcons = {
-          'food': '🍕', 'transport': '🚗', 'shopping': '🛍️',
-          'entertainment': '🎬', 'bills': '📄', 'health': '🏥', 'other': '📦'
+        const categoryLabels = {
+          'food': '🍔 Food and Groceries',
+          'transport': '🚗 Transportation',
+          'rent': '🏠 Rent and Household',
+          'utilities': '🧾 Utilities and Bills',
+          'phone': '📱 Phone Recharge and Internet',
+          'education': '🎓 Education Fees and Books',
+          'stationery': '🖊️ Stationery and Supplies',
+          'healthcare': '💊 Healthcare and Medicines',
+          'personalcare': '🪒 Personal Care and Grooming',
+          'clothing': '👕 Clothing and Accessories',
+          'entertainment': '🎬 Entertainment and Subscriptions',
+          'gifts': '🎁 Gifts and Donations',
+          'savings': '💰 Savings and Investments',
+          'miscellaneous': '🤷‍♂️ Miscellaneous/Others'
         };
         row.innerHTML = `
           <td>${expense.month.charAt(0).toUpperCase() + expense.month.slice(1)}</td>
-          <td>${categoryIcons[expense.category]} ${expense.category.charAt(0).toUpperCase() + expense.category.slice(1)}</td>
+          <td>${categoryLabels[expense.category]}</td>
           <td>${expense.item}</td>
           <td>₹${expense.price.toFixed(2)}</td>
           <td><button class="delete-btn" onclick="deleteExpense(${expense.id})">Delete</button></td>
@@ -382,12 +401,32 @@
       expensesChart = new Chart(ctx, {
         type: 'pie',
         data: {
-          labels: categories.map(cat => cat.charAt(0).toUpperCase() + cat.slice(1)),
+          labels: categories.map(cat => {
+            const categoryLabels = {
+              'food': 'Food and Groceries',
+              'transport': 'Transportation',
+              'rent': 'Rent and Household',
+              'utilities': 'Utilities and Bills',
+              'phone': 'Phone Recharge and Internet',
+              'education': 'Education Fees and Books',
+              'stationery': 'Stationery and Supplies',
+              'healthcare': 'Healthcare and Medicines',
+              'personalcare': 'Personal Care and Grooming',
+              'clothing': 'Clothing and Accessories',
+              'entertainment': 'Entertainment and Subscriptions',
+              'gifts': 'Gifts and Donations',
+              'savings': 'Savings and Investments',
+              'miscellaneous': 'Miscellaneous/Others'
+            };
+            return categoryLabels[cat];
+          }),
           datasets: [{
             data: totals,
             backgroundColor: [
               '#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0',
-              '#9966FF', '#FF9F40', '#FF6384'
+              '#9966FF', '#FF9F40', '#FF6384', '#C9CBCF',
+              '#4BC0C0', '#FF6384', '#36A2EB', '#FFCE56',
+              '#9966FF', '#FF9F40'
             ],
             borderWidth: 2,
             borderColor: '#fff'
